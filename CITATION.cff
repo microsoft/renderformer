@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Cite as below if you find this repository is helpful to your project"
+url: "https://github.com/microsoft/renderformer"
+preferred-citation:
+  type: conference-paper
+  authors:
+  - family-names: "Zeng"
+    given-names: "Chong"
+  - family-names: "Dong"
+    given-names: "Yue"
+  - family-names: "Peers"
+    given-names: "Pieter"
+  - family-names: "Wu"
+    given-names: "Hongzhi"
+  - family-names: "Tong"
+    given-names: "Xin"
+  doi: "10.1145/3721238.3730595"
+  title: "RenderFormer: Transformer-based Neural Rendering of Triangle Meshes with Global Illumination"
+  booktitle: "ACM SIGGRAPH 2025 Conference Papers"
+  year: 2025
