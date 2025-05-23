@@ -44,7 +44,7 @@ def main():
 
     pipeline = RenderFormerRenderingPipeline.from_pretrained(args.model_id)
 
-    if device == torch.device('cuda'):
+    if device == torch.device('cuda') and os.name == 'posix':  # avoid windows
         from renderformer_liger_kernel import apply_kernels
         apply_kernels(pipeline.model)
         torch.backends.cuda.matmul.allow_tf32 = True

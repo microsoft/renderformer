@@ -71,8 +71,8 @@ RenderFormer is a neural rendering pipeline that directly renders an image from 
 
 ## Prerequisites
 
-- **System**: The code is currently tested only on **Linux** and **MacOS**.
-- **Hardware**: The code has been tested on both **NVIDIA CUDA GPUs** and **Apple Metal GPUs**.
+- **System**: The code is tested on **Linux**, **MacOS** and **Windows**.
+- **Hardware**: The code has been tested on both **NVIDIA CUDA GPUs** and **Apple Metal GPUs**. The minimal GPU memory requirement is 8GB.
 
 ## Environment Setup
 
@@ -84,6 +84,7 @@ The rest of the dependencies can be installed through:
 git clone https://github.com/microsoft/renderformer
 cd renderformer
 pip install -r requirements.txt
+python3 -c "import imageio; imageio.plugins.freeimage.download()"  # Needed for HDR image IO
 ```
 
 ## Pretrained Models
