@@ -27,9 +27,9 @@
   <br>
     <a href="https://microsoft.github.io/renderformer/"><strong>Project Page</strong></a>
     |
-    <a href="TBD"><strong>arXiv</strong></a>
+    <a href="https://renderformer.github.io/pdfs/renderformer-paper.pdf"><strong>Paper</strong></a>
     |
-    <a href="TBD"><strong>Model</strong></a>
+    <a href="https://huggingface.co/microsoft/renderformer-v1.1-swin-large"><strong>Model</strong></a>
     |
     <a href="https://github.com/microsoft/renderformer"><strong>Official Code</strong></a>
   </p>
