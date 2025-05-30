@@ -33,7 +33,7 @@ def load_single_h5_data(file_path):
 def main():
     parser = argparse.ArgumentParser(description="Infer using triangle radiosity transformer model")
     parser.add_argument("--h5_file", type=str, required=True, help="Path to the input H5 file")
-    parser.add_argument("--model_id", type=str, help="Model ID on Hugging Face or local path", default="renderformer/renderformer-v1.1-swin-large")
+    parser.add_argument("--model_id", type=str, help="Model ID on Hugging Face or local path", default="microsoft/renderformer-v1.1-swin-large")
     parser.add_argument("--precision", type=str, choices=['bf16', 'fp16', 'fp32'], default='fp16', help="Precision for inference")
     parser.add_argument("--resolution", type=int, default=512, help="Resolution for inference")
     parser.add_argument("--output_dir", type=str, help="Output directory (Default: same as input H5 file)", required=False)

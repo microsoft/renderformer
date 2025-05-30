@@ -61,7 +61,7 @@ class TriangleRenderH5Dataset(Dataset):
 def main():
     parser = argparse.ArgumentParser(description="Batch inference using triangle radiosity transformer model")
     parser.add_argument("--h5_folder", type=str, required=True, help="Path to the folder containing input H5 files")
-    parser.add_argument("--model_id", type=str, help="Model ID on Hugging Face or local path", default="renderformer/renderformer-v1.1-swin-large")
+    parser.add_argument("--model_id", type=str, help="Model ID on Hugging Face or local path", default="microsoft/renderformer-v1.1-swin-large")
     parser.add_argument("--precision", type=str, choices=['bf16', 'fp16', 'fp32'], default='fp16', 
                         help="Precision for inference")
     parser.add_argument("--resolution", type=int, default=512, help="Resolution for inference")
