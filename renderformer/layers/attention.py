@@ -143,19 +143,13 @@ class MultiHeadAttention(nn.Module):
         if ATTN == 'sdpa' or force_sdpa:
             # create attention mask
             if src_key_padding_mask is not None:
-                # things you want to attend to is True
                 assert src_key_padding_mask.shape == (bs, ctx_len), \
                     f"expecting key_padding_mask shape of {(bs, ctx_len)}, but got {src_key_padding_mask.shape}"
-                # but now, things you want to attend to is True
-                src_key_padding_mask = torch.zeros_like(src_key_padding_mask, dtype=torch.bool).masked_fill_(
-                    src_key_padding_mask, True
-                )
                 attn_mask = (
                     src_key_padding_mask.view(bs, 1, 1, ctx_len)
                     .expand(-1, self.num_heads, -1, -1)
-                    .reshape(bs * self.num_heads, 1, ctx_len)
+                    .reshape(bs, self.num_heads, 1, ctx_len)
                 )
-                attn_mask = attn_mask.view(bs, self.num_heads, -1, ctx_len)
             else:
                 attn_mask = None
 
