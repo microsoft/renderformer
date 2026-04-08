@@ -127,8 +127,8 @@ if __name__ == "__main__":
     parser.add_argument('--mesh_path', type=str, 
                        help='Path to mesh file. If not provided, a temporary directory will be used',
                        default=None)
-    parser.add_argument('--dump_blend', default=True, action='store_true', help='Save Blender file after rendering')
-    parser.add_argument('--save_img', default=False, action='store_true', help='Save rendered images')
+    parser.add_argument('--dump_blend', action='store_true', help='Save Blender file after rendering')
+    parser.add_argument('--save_img', action='store_true', help='Save rendered images')
     parser.add_argument('--resolution', type=int, default=512, help='Resolution of the rendered images')
     parser.add_argument('--spp', type=int, default=4096, help='Samples per pixel')
     

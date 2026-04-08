@@ -70,7 +70,7 @@ def main():
     parser.add_argument("--num_workers", type=int, default=0, help="Number of workers for data loading")
     parser.add_argument("--output_dir", type=str, default=None, 
                         help="Output directory for rendered images (default: same as input folder)")
-    parser.add_argument("--save_video", action='store_true', default=True, help="Merge rendered images into a video at video.mp4.")
+    parser.add_argument("--save_video", action='store_true', help="Merge rendered images into a video at video.mp4.")
     parser.add_argument("--tone_mapper", type=str, choices=['none', 'agx', 'filmic', 'pbr_neutral'], default='none', help="Tone mapper for inference")
     args = parser.parse_args()
 
