@@ -1,8 +1,14 @@
+from pathlib import Path
+from typing import Optional, Union
+
 import torch
 from torch import nn
 from torch.amp import autocast
 
-from huggingface_hub import PyTorchModelHubMixin
+from huggingface_hub import PyTorchModelHubMixin, hf_hub_download
+from huggingface_hub.constants import SAFETENSORS_SINGLE_FILE
+from huggingface_hub.utils import EntryNotFoundError
+from safetensors.torch import load_model
 
 from renderformer.encodings.nerf_encoding import NeRFEncoding
 from renderformer.layers.attention import TransformerEncoder
@@ -95,6 +101,55 @@ class RenderFormer(nn.Module, PyTorchModelHubMixin):
 
         # view transformer
         self.view_transformer = ViewTransformer(config)
+
+    @classmethod
+    def _from_pretrained(
+        cls,
+        *,
+        model_id: str,
+        revision: Optional[str],
+        cache_dir: Optional[Union[str, Path]],
+        force_download: bool,
+        local_files_only: bool,
+        token: Optional[Union[str, bool]],
+        map_location: str = "cpu",
+        strict: bool = False,
+        **model_kwargs,
+    ):
+        """Load safetensors weights without the Hub mixin's pickle fallback."""
+        missing_weights = (
+            f"{model_id!r} must contain {SAFETENSORS_SINGLE_FILE}. "
+            "Pickle weights such as pytorch_model.bin are not supported."
+        )
+        # Hub 0.x forwards these download options; Hub 1.x no longer supplies them.
+        download_kwargs = {
+            name: model_kwargs.pop(name)
+            for name in ("proxies", "resume_download")
+            if name in model_kwargs
+        }
+        if Path(model_id).is_dir():
+            model_file = Path(model_id) / SAFETENSORS_SINGLE_FILE
+            if not model_file.is_file():
+                raise FileNotFoundError(missing_weights)
+        else:
+            try:
+                model_file = hf_hub_download(
+                    repo_id=model_id,
+                    filename=SAFETENSORS_SINGLE_FILE,
+                    revision=revision,
+                    cache_dir=cache_dir,
+                    force_download=force_download,
+                    local_files_only=local_files_only,
+                    token=token,
+                    **download_kwargs,
+                )
+            except EntryNotFoundError as error:
+                raise FileNotFoundError(missing_weights) from error
+
+        model = cls(**model_kwargs)
+        load_model(model, str(model_file), strict=strict, device=map_location)
+        model.eval()
+        return model
 
     @property
     def device(self):

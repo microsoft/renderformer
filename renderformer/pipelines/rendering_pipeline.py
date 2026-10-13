@@ -13,6 +13,7 @@ class RenderFormerRenderingPipeline:
 
     @classmethod
     def from_pretrained(cls, model_id: str):
+        """Load a Hub model or local directory containing model.safetensors."""
         model = RenderFormer.from_pretrained(model_id)
         model.eval()
         return cls(model)

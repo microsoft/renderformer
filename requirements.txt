@@ -1,8 +1,8 @@
 dacite
 einops
 roma
-huggingface_hub
-safetensors
+huggingface_hub>=0.23.5
+safetensors>=0.4.3
 trimesh
 scipy
 pymeshlab

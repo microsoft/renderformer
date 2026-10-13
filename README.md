@@ -97,6 +97,12 @@ python3 -c "import imageio; imageio.plugins.freeimage.download()"  # Needed for 
 | RenderFormer-V1-Base | 205M | [Hugging Face](https://huggingface.co/microsoft/renderformer-v1-base) | `microsoft/renderformer-v1-base` |
 | RenderFormer-V1.1-Large | 483M | [Hugging Face](https://huggingface.co/microsoft/renderformer-v1.1-swin-large) | `microsoft/renderformer-v1.1-swin-large` |
 
+Model loading accepts only `model.safetensors` weights, for both Hugging Face
+repositories and local directories. Both official models already use this format.
+Custom models should provide `config.json` and `model.safetensors`, as written by
+`RenderFormer.save_pretrained()`. Missing or invalid safetensors files cause loading
+to fail; pickle weights such as `pytorch_model.bin` are never used as a fallback.
+
 <details>
 <summary>Note on the released models</summary>
 <br>
@@ -136,7 +142,7 @@ Please check the [image render shell script](./render-images.sh) for more exampl
 
 ```bash
 --h5_file H5_FILE     Path to the input H5 file
---model_id MODEL_ID   Model ID on Hugging Face or local path
+--model_id MODEL_ID   Hugging Face model ID or local directory with model.safetensors
 --precision {bf16,fp16,fp32}
                       Precision for inference (Default: fp16)
 --resolution RESOLUTION
@@ -208,7 +214,7 @@ Please check the [video render shell script](./render-videos.sh) for more exampl
 ```bash
 --h5_folder H5_FOLDER
                       Path to the folder containing input H5 files
---model_id MODEL_ID   Model ID on Hugging Face or local path
+--model_id MODEL_ID   Hugging Face model ID or local directory with model.safetensors
 --precision {bf16,fp16,fp32}
                       Precision for inference
 --resolution RESOLUTION
